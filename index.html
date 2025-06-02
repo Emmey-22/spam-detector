@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spam Detector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .ham { background-color: #e1fbe1; color: #2e7d32; border: 1px solid #b2fab4; }
+        .spam { background-color: #ffe4e1; color: #c62828; border: 1px solid #ffb3b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Spam Detector</h2>
+        <form method="POST">
+            <label for="message">Enter your message:</label>
+            <textarea name="message" rows="4" required>{{ request.form.message or '' }}</textarea>
+            <input type="submit" value="Check Message">
+        </form>
+
+        {% if prediction %}
+            <div class="result {{ 'spam' if prediction == 'Spam' else 'ham' }}">
+                Result: {{ prediction }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
